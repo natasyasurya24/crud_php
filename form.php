@@ -20,7 +20,7 @@
         <h1 style="text-align: center;margin: 50px 0;">PHP CRUD operations with MySQL</h1>
         <div class="container">
             <form action="add_data.php" method="post">
-                <div class="row">
+               <div class="row">
                     <div class="form-group col-lg-4">
                         <label for="">Student Name</label>
                         <input type="text" name="name" id="name" class="form-control" required>
@@ -43,18 +43,17 @@
                     <div class="form-group col-lg-2" style="display: grid;align-items:  flex-end;">
                         <input type="submit" name="submit" id="submit" class="btn btn-primary">
                     </div>
-                </div>
+               </div>
             </form>
         </div>
     </section>
-</body>
 
-</html>
-<section style="margin: 50px 0;">
+    <section style="margin: 50px 0;">
         <div class="container">
             <table class="table table-dark">
                 <thead>
                   <tr>
+                  <th scope="col">No</th>
                     <th scope="col">Id</th>
                     <th scope="col">Student Name</th>
                     <th scope="col">Grade</th>
@@ -66,10 +65,11 @@
                 <tbody>
                     <?php 
                         require_once "config.php";
-
                         $sql_query = "SELECT * FROM results";
                         if ($result = $conn ->query($sql_query)) {
-                            while ($row = $result -> fetch_assoc()) { 
+                            $No=0;
+                            while ($row = $result -> fetch_assoc()) {
+                            $No = $No + 1;
                                 $Id = $row['id'];
                                 $Name = $row['name'];
                                 $Grade = $row['grade'];
@@ -77,12 +77,13 @@
                     ?>
                     
                     <tr class="trow">
+                    <td><?php echo $No; ?></td>
                         <td><?php echo $Id; ?></td>
                         <td><?php echo $Name; ?></td>
                         <td><?php echo $Grade; ?></td>
                         <td><?php echo $Marks; ?></td>
-                        <td><a href="updatedata.php?id=<?php echo $Id; ?>" class="btn btn-primary">Edit</a></td>
-                        <td><a href​="deletedata.php?id=<?php echo $Id; ?>" class="btn btn-danger">Delete</a></td>
+                        <td><a href="form_update.php?id=<?php echo $Id; ?>" class="btn btn-primary">Edit</a></td>
+                        <td><a href="delete_data.php?id=<?php echo $Id; ?>" class="btn btn-danger">Delete</a></td>
                     </tr>
 
                     <?php
@@ -93,3 +94,6 @@
               </table>
         </div>
     </section>
+</body>
+
+</html>
